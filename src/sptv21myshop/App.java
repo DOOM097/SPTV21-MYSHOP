@@ -22,7 +22,7 @@ public class App {
         managerProduct = new ManagerProduct();
 
     }
-
+    
     @SuppressWarnings("fallthrough")
     public void run() {
         boolean repeat = true;
@@ -30,12 +30,12 @@ public class App {
         do{
             System.out.println("Список задач: ");
             System.out.println("0. Выход из программы");
-            System.out.println("1. добавить продукт");
-            System.out.println("2. добавить покупателя");
+            System.out.println("1. Добавить продукт");
+            System.out.println("2. Добавить покупателя");
             System.out.println("3. Список продуктов");
-            System.out.println("4. список покупателей");
+            System.out.println("4. Список покупателей");
             System.out.println("5. Покупка продукта");
-            System.out.println("6. добавление денег покупателю");
+            System.out.println("6. Добавление денег покупателю");
             int task = scanner.nextInt();
             scanner.nextLine();
             System.out.println("=====================================");
@@ -45,12 +45,12 @@ public class App {
                     System.out.println("0. Выход из программы");
                     break;
                 case 1:
-                    System.out.println("1. добавить продукт");
+                    System.out.println("1. Добавить продукт");
                     this.products = Arrays.copyOf(this.products, this.products.length+1);
                     this.products[this.products.length-1] = managerProduct.addproduct();
                     break;
                 case 2:
-                    System.out.println("2. добавить покупателя");
+                    System.out.println("2. Добавить покупателя");
                     this.buyers =  Arrays.copyOf(this.buyers, this.buyers.length+1);
                     this.buyers[this.buyers.length-1] = managerBuyer.createBuyer();
                     break;
@@ -58,11 +58,11 @@ public class App {
                     System.out.println("3. Список продуктов");
                     managerProduct.printListProducts(products);
                 case 4:
-                    System.out.println("4. список покупателей");
-                    System.out.println("список покупателей");
+                    System.out.println("4. Cписок покупателей");
+                    System.out.println("Cписок покупателей");
                     managerBuyer.printListBuyers(buyers);
                     break;
-                case 5:
+                case 5: 
                     System.out.println("5. Покупка продукта");
                     System.out.println(" Список покупателей: ");
                     managerBuyer.printListBuyers(buyers);
@@ -81,8 +81,8 @@ public class App {
                     break;
                 case 6:
                     System.out.println("6. добавление денег покупателю");
-                    System.out.println("Выберите покупателя для зачисления на его счет денежных средств");
-                    System.out.println("список покупателей");
+                    System.out.println("Выберите покупателя для зачисления");
+                    System.out.println("Список покупателей");
                     managerBuyer.printListBuyers(buyers);
                     int turn = scanner.nextInt(); scanner.nextLine();
                     System.out.println("Сколько денег?");
@@ -93,7 +93,7 @@ public class App {
             }
             System.out.println("=======================================");
         }while(repeat);
-        System.out.println("Пока, ребята!");
+        System.out.println("Пока!");
     }
 
 
