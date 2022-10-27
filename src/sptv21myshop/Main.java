@@ -1,6 +1,5 @@
-package MyClass;
 
-import sptv21myshop.App;
+package sptv21myshop;
 
 public class Main {
     public static void main(String[] args) {

@@ -1,124 +1,101 @@
-
 package sptv21myshop;
+
+
 import Entity.Buyer;
 import Entity.Product;
-import Entity.History;
-
+import java.text.ParseException;
 import java.util.Arrays;
-import java.util.GregorianCalendar;
 import java.util.Scanner;
+import Manager.ManagerBuyer;
+import Manager.ManagerProduct;
+
 
 public class App {
     private Product[] products;
     private Buyer[] buyers;
-
+    private final ManagerBuyer managerBuyer;
+    private final ManagerProduct managerProduct;
 
     public App() {
-        products = new Product[0];
+        this.products = new Product[0];
+        this.buyers = new Buyer[0];
+        managerBuyer = new ManagerBuyer();
+        managerProduct = new ManagerProduct();
+
     }
 
+    @SuppressWarnings("fallthrough")
     public void run() {
-
         boolean repeat = true;
         Scanner scanner = new Scanner(System.in);
-
-        History[] histories = new History[0];
-
-        do {
-            System.out.println(" ");
-            System.out.println("Программа магизина");
-            System.out.println("Задачи: ");
-            System.out.println("0. Закончить программу");
-            System.out.println("1. Добавить товар");
-            System.out.println("2. Добавить покупателя");
-            System.out.println("3. Выдать товар");
-            System.out.println("4. Вывод всех товаров");
-            System.out.println("5. Вывод всех покупателей");
-            System.out.print("Выберите задачу: ");
+        do{
+            System.out.println("Список задач: ");
+            System.out.println("0. Выход из программы");
+            System.out.println("1. добавить продукт");
+            System.out.println("2. добавить покупателя");
+            System.out.println("3. Список продуктов");
+            System.out.println("4. список покупателей");
+            System.out.println("5. Покупка продукта");
+            System.out.println("6. добавление денег покупателю");
             int task = scanner.nextInt();
             scanner.nextLine();
-            int numberBuyer = 0;
+            System.out.println("=====================================");
             switch (task) {
                 case 0:
                     repeat = false;
+                    System.out.println("0. Выход из программы");
                     break;
-
                 case 1:
-                    System.out.println("Добавление товара");
-                    System.out.println("Введите название товара: ");
-                    String productName = scanner.nextLine();
-                    System.out.println("Введите колл-во товара: ");
-                    String quantity = scanner.nextLine();
-                    System.out.println("Введите название производителя");
-                    String manufacturerName = scanner.nextLine();
-                    Product product = createProduct(productName, quantity, manufacturerName);
+                    System.out.println("1. добавить продукт");
                     this.products = Arrays.copyOf(this.products, this.products.length+1);
-                    this.products[this.products.length - 1] = product;
-
+                    this.products[this.products.length-1] = managerProduct.addproduct();
                     break;
-
                 case 2:
-                    System.out.println("Добваление покупателя");
-                    System.out.println("Введите имя: ");
-                    String name = scanner.nextLine();
-                    System.out.println("Введите фамилию: ");
-                    String lastname = scanner.nextLine();
-                    System.out.println("Введите номер телефона: ");
-                    int phone = scanner.nextInt();
-                    Buyer buyer = createBuyer(name, lastname, String.valueOf(phone));
-                    Buyer[] newBuyer = new Buyer[buyers.length + 1];
-                    newBuyer[newBuyer.length - 1] = buyer;
-                    this.buyers = newBuyer;
+                    System.out.println("2. добавить покупателя");
+                    this.buyers =  Arrays.copyOf(this.buyers, this.buyers.length+1);
+                    this.buyers[this.buyers.length-1] = managerBuyer.createBuyer();
                     break;
-
                 case 3:
-                    System.out.println("Выдать товар");
-                    for (int i = 0; i < buyers.length; i++) {
-                        System.out.printf(i + 1 + ". " + buyers[i].getFirstname() + ". " + buyers[i].getLastname() + ". ");
-                    }
-                    System.out.print("Выбери покупателя: ");
-                    numberBuyer = scanner.nextInt();
-                    scanner.nextLine();
-                    System.out.println("Список товаров: ");
-                    for (int i = 0; i < products.length; i++) {
-                        System.out.println(i + 1 + ". " + products[i].productName() + ". " + products[i] + ". " + ". " + products[i].manufacturer());
-                    }
-                    System.out.println();
-
-                    System.out.print("Выберите номер книги: ");
-                    int numberProducts = scanner.nextInt();
-                    scanner.nextLine();
-                    History history = new History();
-                    history.setProduct(products[numberProducts - 1]);
-                    history.setBuyer(buyers[numberBuyer - 1]);
-                    history.setTakeOnBook(new GregorianCalendar().getTime());
-                    History[] newHistories = new History[histories.length + 1];
-                    newHistories[newHistories.length - 1] = history;
-                    histories = newHistories;
-                    System.out.println(history);
-                    break;
+                    System.out.println("3. Список продуктов");
+                    managerProduct.printListProducts(products);
                 case 4:
+                    System.out.println("4. список покупателей");
+                    System.out.println("список покупателей");
+                    managerBuyer.printListBuyers(buyers);
+                    break;
+                case 5:
+                    System.out.println("5. Покупка продукта");
+                    System.out.println(" Список покупателей: ");
+                    managerBuyer.printListBuyers(buyers);
+                    int buyer = scanner.nextInt(); scanner.nextLine();
+                    System.out.println(" Список продуктов: ");
+                    for(int j = 0; j< products.length; j++){
+                        managerProduct.printListProducts(products);
+                    }
+                    int product = scanner.nextInt(); scanner.nextLine();
+                    System.out.println("Кол-во товара: ");
+                    int Quality = scanner.nextInt(); scanner.nextLine();
+                    int pur = (buyers[buyer-1].getCash()) - (products[product-1].getPrice());
+                    buyers[buyer-1].setCash(pur);
+                    System.out.println("Остаток на счету"+pur);
 
                     break;
-                default:
-                    System.out.println("выбериет задачу");
+                case 6:
+                    System.out.println("6. добавление денег покупателю");
+                    System.out.println("Выберите покупателя для зачисления на его счет денежных средств");
+                    System.out.println("список покупателей");
+                    managerBuyer.printListBuyers(buyers);
+                    int turn = scanner.nextInt(); scanner.nextLine();
+                    System.out.println("Сколько денег?");
+                    int addMoney = scanner.nextInt(); scanner.nextLine();
+                    int TotalMoney = buyers[turn -1].getCash()+ addMoney;
+                    buyers[turn -1].setCash(TotalMoney);
+                    break;
             }
-        }while (repeat) ;
-            System.out.println("Закрытие программы, досвидания!");
-        }
+            System.out.println("=======================================");
+        }while(repeat);
+        System.out.println("Пока, ребята!");
+    }
 
-        public Product createProduct (String productName, String quantity, String manufacturerName){
-            Product product = new Product();
-            product.setProductName(productName);
-            product.setQuantity(Integer.parseInt(quantity));
-            product.setManufacturer(manufacturerName);
-            return product;
-        }
-        public Buyer createBuyer (String name, String lastname, String phone){
-            Buyer buyer = new Buyer();
-            buyer.setFirstname(name);
-            buyer.setLastname(lastname);
-            buyer.setPhone(Integer.parseInt(phone));
-            return buyer;
-        }
+
 }

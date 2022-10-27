@@ -1,45 +1,48 @@
-
 package Entity;
 
 public class Buyer {
-    private String firstname;
-    private String lastname;
-    private int phone;
+        private String firstname;
+        private String lastname;
+    private int cash;
+
+    public int getCash() {
+        return cash;
+    }
+
+    public void setCash(int cash) {
+        this.cash = cash;
+    }
 
     public Buyer() {
-    }
+        }
 
-    public String getFirstname() {
-        return firstname;
-    }
+        public Buyer(String firstname, String lastname) {
+            this.firstname = firstname;
+            this.lastname = lastname;
+        }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
+        public String getFirstname() {
+            return firstname;
+        }
 
-    public String getLastname() {
-        return lastname;
-    }
+        public void setFirstname(String firstname) {
+            this.firstname = firstname;
+        }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
+        public String getLastname() {
+            return lastname;
+        }
 
-    public int getPhone() {
-        return phone;
-    }
-
-    public void setPhone(int phone) {
-        this.phone = phone;
-    }
+        public void setLastname(String lastname) {
+            this.lastname = lastname;
+        }
 
     @Override
     public String toString() {
-        return "Reader{"
-                + "firstname=" + firstname
-                + ", lastname=" + lastname
-                + ", phone=" + phone
-                + '}';
+        return "Buyer{" +
+                "firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", cash=" + cash +
+                '}';
     }
-
 }
