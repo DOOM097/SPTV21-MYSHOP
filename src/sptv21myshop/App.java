@@ -3,7 +3,6 @@ package sptv21myshop;
 
 import Entity.Buyer;
 import Entity.Product;
-import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Scanner;
 import Manager.ManagerBuyer;

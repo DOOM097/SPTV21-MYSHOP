@@ -1,12 +1,11 @@
 package Manager;
 
-import Entity.Buyer;
 import Entity.Product;
 import java.util.Scanner;
 
 
 public class ManagerProduct {
-    private Scanner scanner;
+    private final Scanner scanner;
 
     public ManagerProduct() {
         this.scanner = new Scanner(System.in);
